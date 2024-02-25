@@ -1,0 +1,25 @@
+version: "3"
+
+services:
+  wordpress:
+    image: wordpress:beta-6.4.3
+    restart: unless-stopped
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: PUTAPASSWORDHERE
+      WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      - ./public_html:/var/www/html
+  mysql:
+    image: mysql:5.7.42
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: PUTAPASSWORDHERE
+      MYSQL_ROOT_PASSWORD: PUTANOTHERPASSWORDHERE
+    volumes:
+      - ./db:/var/lib/mysql
